@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><title>ひたテツ 構成図</title>
+<style>
+:root{--bg:#24272a;--card:#2f3336;--line:#e9e5da;--ink:#f2efe6;--mute:#a9a69e;--navy:#1f3a6e;--navy2:#2d5299;--accent:#e2b64a}
+*{box-sizing:border-box;margin:0}
+body{width:1600px;height:1000px;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN",sans-serif;position:relative;overflow:hidden}
+h1{position:absolute;left:60px;top:36px;font-size:34px;font-weight:800;letter-spacing:.02em}
+h1 small{font-size:18px;color:var(--mute);font-weight:600;margin-left:14px}
+.box{position:absolute;background:var(--card);border:2.5px solid var(--line);border-radius:16px;box-shadow:6px 6px 0 #0d0f10;padding:16px 20px}
+.box.navy{background:var(--navy);}
+.t{font-size:22px;font-weight:800}
+.api{display:inline-block;margin-top:8px;font-size:13.5px;white-space:nowrap;font-weight:700;background:#14171a;border:1.5px solid #5d6670;color:var(--accent);padding:3px 9px;border-radius:7px}
+.d{font-size:15px;color:var(--mute);margin-top:7px;line-height:1.45}
+.box.navy .d{color:#c9d3e6}
+.file{font-family:Menlo,monospace;font-size:13.5px;color:var(--ink);background:#14171a;border-radius:6px;padding:2px 7px;display:inline-block;margin:3px 4px 0 0}
+.tag{position:absolute;font-size:14px;font-weight:700;color:var(--mute);background:var(--bg);padding:0 6px}
+.use{background:#14171a;border:1.5px solid #5d6670;border-radius:10px;padding:8px 12px;margin-top:9px;font-size:16px;font-weight:700}
+.use span{display:block;font-size:13px;color:var(--mute);font-weight:500;margin-top:2px}
+.note{position:absolute;left:60px;bottom:34px;font-size:16px;color:var(--mute)}
+.note b{color:var(--ink)}
+svg{position:absolute;inset:0}
+</style></head><body>
+<h1>ひたテツ の構成<small>Firebase プロジェクト: hitatetsu-d93b9</small></h1>
+
+<svg width="1600" height="1000">
+ <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0 0L10 5L0 10z" fill="#e9e5da"/></marker>
+ <marker id="y" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0 0L10 5L0 10z" fill="#e2b64a"/></marker></defs>
+ <g stroke="#e9e5da" stroke-width="2.5" fill="none" marker-end="url(#a)">
+  <path d="M240 262 V352"/>
+  <path d="M470 546 H540 V170 H616"/>
+  <path d="M540 335 H616"/>
+  <path d="M540 515 H616"/>
+  <path d="M540 682 H616"/>
+  <path d="M540 546 V857 H616"/>
+  <path d="M1124 857 H1176"/>
+ </g>
+ <path d="M1124 335 H1150 V815 H1128" stroke="#e2b64a" stroke-width="2.5" stroke-dasharray="8 6" fill="none" marker-end="url(#y)"/>
+</svg>
+<div class="tag" style="left:252px;top:292px">HTML / JS / 画像を配信</div>
+
+<div class="box" style="left:60px;top:110px;width:410px;height:150px">
+ <div class="t">Firebase Hosting</div>
+ <div class="api">Firebase Hosting API（デプロイの時だけ）</div>
+ <div class="d">hitatetsu-d93b9.web.app<br>flutter build web → firebase deploy</div>
+</div>
+
+<div class="box navy" style="left:60px;top:356px;width:410px;height:380px">
+ <div class="t">ユーザーのブラウザ</div>
+ <div class="d" style="font-size:17px;color:#fff;font-weight:700;margin-top:4px">Flutter Web アプリ（サーバーなし）</div>
+ <div class="d">Firebase SDK で、各サービスを直接呼ぶ</div>
+ <div style="margin-top:12px">
+  <span class="file">services/cloud.dart</span><div class="d" style="margin:2px 0 8px">起動・ログイン・App Check・保存・AI の入口</div>
+  <span class="file">services/depth_grader.dart</span>
+  <span class="file">services/boss_battle.dart</span>
+  <span class="file">services/philosopher_reply.dart</span>
+  <div class="d" style="margin-top:4px">Gemini を使う3つの機能</div>
+ </div>
+</div>
+
+<div class="box" style="left:620px;top:110px;width:500px;height:120px">
+ <div class="t">Firebase Authentication</div>
+ <div class="api">Identity Toolkit API</div>
+ <div class="d">匿名ログイン（登録なしで始められる）→ uid</div>
+</div>
+
+<div class="box" style="left:620px;top:260px;width:500px;height:150px">
+ <div class="t">Firebase App Check</div>
+ <div class="api">Firebase App Check API</div> <div class="api">reCAPTCHA Enterprise API</div>
+ <div class="d">ほかのサイトやスクリプトから AI を使わせない<br><span style="color:#e2b64a">→ AI Logic へのリクエストのトークンを確認（点線）</span></div>
+</div>
+
+<div class="box" style="left:620px;top:440px;width:500px;height:150px">
+ <div class="t">Cloud Firestore</div>
+ <div class="api">Cloud Firestore API</div>
+ <div class="d">users/{uid}・answers … 記録・メール・ミッション・設定<br>ルール: 本人のデータだけ読み書きできる</div>
+</div>
+
+<div class="box" style="left:620px;top:620px;width:500px;height:125px">
+ <div class="t">Google Analytics for Firebase</div>
+ <div class="api">（Firebase コンソール → Analytics で確認）</div>
+ <div class="d">答え・深さの判定・ボス戦のイベント</div>
+</div>
+
+<div class="box" style="left:620px;top:775px;width:500px;height:125px">
+ <div class="t">Firebase AI Logic</div>
+ <div class="api">Firebase AI Logic API</div>
+ <div class="d">Gemini への入口（構造化出力: JSON スキーマ）</div>
+</div>
+
+<div class="box navy" style="left:1180px;top:470px;width:370px;height:430px">
+ <div class="t">Gemini</div>
+ <div class="api">Vertex AI API（Agent Platform）</div>
+ <div class="d">gemini-3.5-flash-lite<br>（予備: gemini-3.5-flash）<br>Cloud の請求先（クレジット）で支払い</div>
+ <div class="use">考えの深さの判定<span>4つの観点で採点 → 深さ・思考パターン</span></div>
+ <div class="use">ボス戦<span>哲学者ボス役と、反論の審判</span></div>
+ <div class="use">哲学者の返事<span>本人の考え方・本物の言葉の資料をもとに</span></div>
+</div>
+
+<div class="box" style="left:1180px;top:110px;width:370px;height:300px;background:transparent;box-shadow:none;border-style:dashed;border-color:#5d6670">
+ <div class="t" style="color:var(--mute)">使っていない（自動で有効）</div>
+ <div class="d" style="font-size:16px;line-height:1.9">Firebase App Hosting API<br>Cloud Run<br>Firebase Cloud Messaging API<br>Firebase Remote Config API</div>
+ <div class="d" style="margin-top:10px">Cloud コンソールで「—」でも問題なし</div>
+</div>
+
+<div class="note"><b>バックエンドのサーバーはなし。</b> ブラウザから直接 Firebase を呼び、App Check と Firestore のセキュリティルールで守る。　黄色の枠 = Google Cloud コンソールの「有効な API」に出る名前</div>
+</body></html>

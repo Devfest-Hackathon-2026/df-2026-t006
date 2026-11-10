@@ -1,0 +1,15 @@
+rules_version = '2';
+
+// ひたテツ: 自分のデータ（users/{自分のuid}）だけ読み書きできる。それ以外は全部ダメ。
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+
+      // 答えの記録: 追加だけ（あとから書きかえ・削除はできない）
+      match /answers/{answerId} {
+        allow read, create: if request.auth != null && request.auth.uid == uid;
+      }
+    }
+  }
+}
